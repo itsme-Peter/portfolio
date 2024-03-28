@@ -1,0 +1,26 @@
+body{
+    background-image: url("../images/img4.jpg");
+    color: white;
+}
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.contact:hover{
+    color: 	#03396cc9;
+    transition-delay: 0.2s; /* Add a delay of 0.2s on hover */
+    transform: scale(1.2); /* Example transformation on hover */
+}
+#phone, #desktop {
+    overflow: hidden;
+    transition: height 0.3s ease; /* Add transition for smooth animation */
+}
