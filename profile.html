@@ -19,25 +19,33 @@
         }
     </style>
 </head>
-<body class="text-white w-2/3 mx-auto">
+<body class="text-white md:w-2/3 mx-auto">
     <section class="">
-        <div class="flex rounded-xl text-white justify-between p-4 my-7 items-center background px-7">
-            <div>
-                <a href="/" class="text-2xl font-bold">its-Mugwe</a>
-            </div>
-            <div class="flex text-lg space-x-7 items-center">
-                <a href="index.html" class="hover:text-gray-400">Home</a>
-                <a href="./profile" class="hover:text-gray-400">About Me</a>
-                <a href="index.html" class="hover:text-gray-400">Projects</a>
-                <button type="button" id="contact" data-toggle="modal" data-target="#contactModal" class="btn btn btn-outline-warning btn-lg">Contact Me</button>
+        <div class="md:sticky top-2 mx-2 md:mx-0">
+            <div class="md:flex rounded-xl text-white md:justify-between p-4 my-7 items-center background px-7">
+                <div class="flex justify-between items-center mx-3">
+                    <a href="/" class="text-2xl font-bold">its-Mugwe</a>
+                    <div class="md:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="hidden md:flex text-lg space-x-7 items-center">
+                    <a href="./index.html" class="hover:text-gray-400">Home</a>
+                    <a href="profile.html" class="hover:text-gray-400">About Me</a>
+                    <a href="index.html" class="hover:text-gray-400">Projects</a>
+                    <button type="button" id="contact" data-toggle="modal" data-target="#contactModal" class="btn btn btn-outline-warning btn-lg">Contact Me</button>
+                </div>
+                
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
             <div class="rounded-xl background ">
                 <img src="static/images/work2.jpg" alt="" class=" h-full w-full object-cover">
             </div>
-            <div class="text-center justify-center rounded-xl background flex flex-col items-center">
+            <div class="text-center justify-center rounded-xl background flex flex-col items-center py-3">
                 <p class="font-bold mb-2 text-sm bg-black p-1 rounded-lg text-green-400">AVAILABLE FOR WORK</p>
                 <p class="text-4xl font-bold">Cyber Security Student</p>
                 <p class="mt-4">I am interested in learning about <br> Cyber Security, Programming, Networking and Web Development.</p>
@@ -45,7 +53,7 @@
             </div>
         </div>
 
-        <div class="my-7 flex justify-center space-x-10">
+        <div class="my-7 md:flex justify-center space-x-10 grid grid-cols-2 gap-1">
             <a class="flex items-center px-6 py-4 background rounded-xl text-xl space-x-4 items-center" href="">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-twitter-x mr-1" viewBox="0 0 16 16">
                     <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
@@ -75,11 +83,11 @@
 
     <div class="my-20">
         <h2 class="font-bold text-2xl my-10">Skills and Qualifications</h2>
-        <div class="flex items-center mx-16 my-14">
+        <div class="md:flex items-center mx-16 my-14">
             <div>
                 <img src="./static/images/comptia.png" alt="" class="h-full">
             </div>
-            <div class="ml-40">
+            <div class="md:ml-40">
                 <ul class="list-disc space-y-5 text-lg txt_color">
                     <li>Security and Network Configuration</li>
                     <li>Identity and Access Control</li>
@@ -103,11 +111,11 @@
             </div>
         </div>
 
-        <div class="flex my-14 items-center justify-around mx-16">
+        <div class="md:flex my-14 items-center justify-around mx-16">
             <div class="">
                 <img src="static/images/ccna2.png" alt="" class="h-full">
             </div>
-            <div class="ml-40">
+            <div class="md:ml-40">
                 <ul class="list-disc space-y-5 text-lg txt_color">
                     <li>Dynamic Routing</li>
                     <li></li>
@@ -129,8 +137,8 @@
 
     </div>
 
-    <div class="my-10 grid grid-cols-3 gap-6">
-        <div class="background my-10 rounded px-3 py-2">
+    <div class="my-10 grid grid-cols-1 md:grid-cols-3 gap-7">
+        <div class="background md:my-10 rounded px-3 py-2 text-center">
             <div class="flex my-4 justify-around items-center h-20">
                 <div>
                     <img src="data:image/png;base64,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">
@@ -150,7 +158,7 @@
             </div>
         </div>
 
-        <div class="background my-10 rounded px-3 py-2">
+        <div class="background md:my-10 rounded px-3 py-2 text-center">
             <div class="flex my-4 justify-around items-center h-20">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="70" height="70" viewBox="0 0 48 48">
@@ -176,7 +184,7 @@
             </div>
         </div>
 
-        <div class="background my-10 rounded px-3 py-2">
+        <div class="background md:my-10 rounded px-3 py-2 text-center">
             <div class="flex my-4 justify-around items-center h-20">
                 <div>
                     <img src="data:image/png;base64,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">
@@ -200,7 +208,7 @@
     </div>
 
     <footer class="my-5">
-        <div class="flex grid grid-cols-2 gap-7 text-center">
+        <div class="grid md:grid-cols-2 grid-cols-1 gap-7 text-center">
             <div class="background rounded">
                 <div class="flex justify-center -my-10">
                     <img src="static/images/img1.png" alt="" class="rounded-full h-28">
@@ -221,15 +229,19 @@
             </div>
         </div>
 
-        <div class="flex rounded-xl text-white justify-between p-4 my-7 items-center background px-7">
-            <div>
-                <a href="/" class="text-2xl font-bold">its-Mugwe</a>
-            </div>
-            <div class="flex text-lg space-x-7 items-center">
-                <a href="/" class="hover:text-gray-400">Home</a>
-                <a href="/profile" class="hover:text-gray-400">About Me</a>
-                <a href="/" class="hover:text-gray-400">Projects</a>
-                <button type="button" id="contact" data-toggle="modal" data-target="#contactModal" class="btn btn btn-outline-warning btn-lg">Contact Me</button>
+        <div class="">
+            <div class="flex rounded-xl text-white justify-center md:justify-between p-4 my-7 items-center background px-7">
+                <div class="flex space-x-10">
+                    <a href="/" class="text-2xl font-bold">its-Mugwe</a>
+                    <button type="button" id="contact" data-toggle="modal" data-target="#contactModal" class="btn btn btn-outline-warning btn-lg md:hidden">Contact Me</button>
+                </div>
+                <div class="hidden md:flex text-lg space-x-7 items-center">
+                    <a href="./index.html" class="hover:text-gray-400">Home</a>
+                    <a href="profile.html" class="hover:text-gray-400">About Me</a>
+                    <a href="index.html" class="hover:text-gray-400">Projects</a>
+                    <button type="button" id="contact" data-toggle="modal" data-target="#contactModal" class="btn btn btn-outline-warning btn-lg">Contact Me</button>
+                </div>
+                
             </div>
         </div>
     </footer>

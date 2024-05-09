@@ -18,8 +18,8 @@ if (html !== null) {
         var innerHtml = `
     
             <a href=${data[i]["url"]}>
-                <div class="background rounded-xl mt-4 flex items-center justify-between h-40">
-                    <div class="w-3/4 p-5">
+                <div class="background rounded-xl mx-2 md:mx-0 mt-4 flex items-center justify-between h-40">
+                    <div class="w-3/4 p-3 md:p-5">
                         <p class="text-xl font-semibold my-2">${data[i]["title"]}</p>
                         <p class="txt_color font-semibold">${data[i]["description"]}</p>
                     </div>
@@ -58,3 +58,12 @@ function handleSubmit(event) {
 }
 
 document.getElementById('contactUs').addEventListener('submit', handleSubmit);
+
+var html = document.getElementById("ham");
+if (html !== null) {
+    // JavaScript to toggle mobile menu visibility
+    document.getElementById('ham').addEventListener('click', function() {
+        document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+}
+
