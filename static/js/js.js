@@ -59,11 +59,16 @@ function handleSubmit(event) {
 
 document.getElementById('contactUs').addEventListener('submit', handleSubmit);
 
+// JavaScript to toggle mobile menu visibility when the hamburger icon is clicked
 var html = document.getElementById("ham");
 if (html !== null) {
-    // JavaScript to toggle mobile menu visibility
-    document.getElementById('ham').addEventListener('click', function() {
+    html.addEventListener('click', function() {
         document.getElementById('mobileMenu').classList.toggle('hidden');
     });
 }
 
+// Function to close the mobile menu when the "x" button is clicked
+function ham() {
+    let dc = document.getElementById('mobileMenu');
+    dc.classList.add('hidden'); // Add the 'hidden' class to hide the menu
+}

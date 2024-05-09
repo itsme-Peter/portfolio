@@ -21,44 +21,43 @@
 </head>
 <body class="text-white ml-3 md:w-2/3 mx-auto ">
     <div class="sticky top-2 border-b-2 mx-">
-        <div class="md:flex rounded-xl text-white md:justify-between p-4 my-7 items-center background px-7">
-            <div class="flex justify-between items-center mx-3">
-                <a href="/" class="text-2xl font-bold">its-Mugwe</a>
-                <div class="md:hidden">
-                    <button id="ham">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                        </svg>
-                    </button>
-                </div>
+      <div class="md:flex rounded-xl text-white md:justify-between p-4 my-7 items-center background px-7">
+        <div class="flex justify-between items-center mx-3">
+            <a href="/" class="text-2xl font-bold">its-Mugwe</a>
+            <div class="md:hidden">
+                <button id="ham">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                </button>
             </div>
-            <div class="hidden md:block md:relative">
-                <div class="md:flex text-lg space-x-7 items-center">
-                    <a href="./index.html" class="hover:text-gray-400 block md:flex">Home</a>
-                    <a href="profile.html" class="hover:text-gray-400 block md:flex">About Me</a>
-                    <a href="index.html" class="hover:text-gray-400 block md:flex">Projects</a>
-                    <button type="button" id="contact" data-toggle="modal" data-target="#contactModal" class="btn btn btn-outline-warning btn-lg block md:flex">Contact Me</button>
-                </div> 
-            </div>
-
-            <div class="hidden absolute md:hidden inset-0 bg-black bg-opacity-75 flex justify-center items-center" id="mobileMenu">
-                <div class="bg-white rounded-lg w-3/4 mt-64 text-lg">
-                  <div class="flex flex-col items-center space-y-10 p-8 ">
-                      <a href="./index.html" class="text-gray-800 hover:text-gray-600">Home</a>
-                      <a href="./profile.html" class="text-gray-800 hover:text-gray-600">About Me</a>
-                      <a href="./index.html" class="text-gray-800 hover:text-gray-600">Projects</a>
-                      <button type="button" id="contact" data-toggle="modal" data-target="#contactModal" class="btn btn-outline-warning btn-lg">Contact Me</button>
-                      <button class="w-full text-lg text-black bg-yellow-500 p-2 rounded font-bold">Close</button>
-                  </div>
-                </div>
-          </div>
-            
         </div>
+        <div class="hidden md:flex">
+            <div class="md:flex text-lg space-x-7 items-center">
+                <a href="./index.html" class="hover:text-gray-400 block md:flex">Home</a>
+                <a href="profile.html" class="hover:text-gray-400 block md:flex">About Me</a>
+                <a href="index.html" class="hover:text-gray-400 block md:flex">Projects</a>
+                <button type="button" id="contact" data-toggle="modal" data-target="#contactModal" class="btn btn btn-outline-warning btn-lg block md:flex">Contact Me</button>
+            </div> 
+        </div>        
+      </div>
     </div>
     
     <div class="mx-auto mt-10 h-full averflow-auto" id="content">
 
     </div>
+
+<div class="hidden absolute md:hidden inset-0 bg-black bg-opacity-75 flex justify-center items-center" id="mobileMenu">
+  <div class="bg-white rounded-lg w-3/4 text-lg">
+    <div class="flex flex-col items-center space-y-10 p-8 ">
+        <a href="./index.html" class="text-gray-800 hover:text-gray-600">Home</a>
+        <a href="./profile.html" class="text-gray-800 hover:text-gray-600">About Me</a>
+        <a href="./index.html" class="text-gray-800 hover:text-gray-600">Projects</a>
+        <button type="button" id="contact" data-toggle="modal" data-target="#contactModal" class="btn btn-outline-warning btn-lg">Contact Me</button>
+        <button class="w-full text-lg text-black bg-yellow-500 p-2 rounded font-bold" onclick="ham()">Close</button>
+    </div>
+    </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">

@@ -26,9 +26,11 @@
                 <div class="flex justify-between items-center mx-3">
                     <a href="/" class="text-2xl font-bold">its-Mugwe</a>
                     <div class="md:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                        </svg>
+                        <button id="ham">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
                 <div class="hidden md:flex text-lg space-x-7 items-center">
@@ -36,6 +38,18 @@
                     <a href="profile.html" class="hover:text-gray-400">About Me</a>
                     <a href="index.html" class="hover:text-gray-400">Projects</a>
                     <button type="button" id="contact" data-toggle="modal" data-target="#contactModal" class="btn btn btn-outline-warning btn-lg">Contact Me</button>
+                </div>
+
+                <div class="hidden absolute md:hidden inset-0 bg-black bg-opacity-75 flex justify-center items-center" id="mobileMenu">
+                    <div class="bg-white rounded-lg w-3/4 text-lg">
+                      <div class="flex flex-col items-center space-y-10 p-8 ">
+                          <a href="./index.html" class="text-gray-800 hover:text-gray-600">Home</a>
+                          <a href="./profile.html" class="text-gray-800 hover:text-gray-600">About Me</a>
+                          <a href="./index.html" class="text-gray-800 hover:text-gray-600">Projects</a>
+                          <button type="button" id="contact" data-toggle="modal" data-target="#contactModal" class="btn btn-outline-warning btn-lg">Contact Me</button>
+                          <button class="w-full text-lg text-black bg-yellow-500 p-2 rounded font-bold" onclick="ham()">Close</button>
+                      </div>
+                    </div>
                 </div>
                 
             </div>
@@ -53,8 +67,8 @@
             </div>
         </div>
 
-        <div class="my-7 md:flex justify-center space-x-10 grid grid-cols-2 gap-1">
-            <a class="flex items-center px-6 py-4 background rounded-xl text-xl space-x-4 items-center" href="">
+        <div class="my-7 md:flex justify-center md:space-x-10 grid grid-cols-2 gap-2">
+            <a class="flex items-center px-6 py-4 background rounded-xl text-xl space-x-4 items-center" href="https://twitter.com/iwant_ke">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-twitter-x mr-1" viewBox="0 0 16 16">
                     <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
                 </svg>
@@ -99,15 +113,33 @@
             </div>
         </div>
 
-        <div class="flex my-14 items-center justify-around mx-16">
+        <div class="hidden md:flex my-14 items-center justify-around mx-16">
             <div>
                 <ul class="list-disc space-y-5 text-lg txt_color">
-                    <li>Dynamic Routing</li>
-                    <li>Network Address Translation(NAT)</li>
+                    <li>Dynamic Routing and Network Address Translation(NAT)</li>
+                    <li>Quality of Service(QOS)</li>
+                    <li>Virtualization</li>
+                    <li>Wide Area Networks</li>
+                    <li>Network Automation Basics</li>
                 </ul>
             </div>
             <div class="ml-40">
                 <img src="static/images/ccna3.png" alt="" class="h-full">
+            </div>
+        </div>
+
+        <div class="md:hidden my-14 items-center justify-around mx-16">
+            <div class="">
+                <img src="static/images/ccna3.png" alt="" class="h-full">
+            </div>
+            <div>
+                <ul class="list-disc space-y-5 text-lg txt_color">
+                    <li>Dynamic Routing and Network Address Translation(NAT)</li>
+                    <li>Quality of Service(QOS)</li>
+                    <li>Virtualization</li>
+                    <li>Wide Area Networks</li>
+                    <li>Network Automation Basics</li>
+                </ul>
             </div>
         </div>
 
@@ -117,21 +149,41 @@
             </div>
             <div class="md:ml-40">
                 <ul class="list-disc space-y-5 text-lg txt_color">
-                    <li>Dynamic Routing</li>
-                    <li></li>
+                    <li>Switching and Routing Protocols</li>
+                    <li>IP services and high availability</li>
+                    <li>First Hop Redundancy</li>
+                    <li>Access Security and Connectivity</li>
                 </ul>
             </div>
         </div>
 
-        <div class="flex my-14 items-center justify-around mx-16">
+        <div class="hidden md:flex my-14 items-center justify-around mx-16">
             <div class="ml-40">
                 <ul class="list-disc space-y-5 text-lg txt_color">
-                    <li>Dynamic Routing</li>
-                    <li></li>
+                    <li>Network and Fundamentals</li>
+                    <li>IP subnetting</li>
+                    <li>IPv4 and IPv6 Addressing</li>
+                    <li>Switching</li>
+                    <li>Ethernet</li>
                 </ul>
             </div>
             <div class="">
                 <img src="static/images/ccna1.png" alt="" class="h-full">
+            </div>
+        </div>
+
+        <div class="md:hidden my-14 items-center justify-around mx-16">
+            <div class="">
+                <img src="static/images/ccna1.png" alt="" class="h-full">
+            </div>
+            <div class="">
+                <ul class="list-disc space-y-5 text-lg txt_color">
+                    <li>Network and Fundamentals</li>
+                    <li>IP subnetting</li>
+                    <li>IPv4 and IPv6 Addressing</li>
+                    <li>Switching</li>
+                    <li>Ethernet</li>
+                </ul>
             </div>
         </div>
 
