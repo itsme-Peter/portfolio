@@ -54,6 +54,7 @@ function handleSubmit(event) {
     }
 
     alert("HINT!!!lamphilosopher101@gmail.com")
+    return;
 }
 
-document.getElementById('contact').addEventListener('submit', handleSubmit);
+document.getElementById('contactUs').addEventListener('submit', handleSubmit);
