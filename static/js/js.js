@@ -7,87 +7,53 @@ var data=[
         "date":"2 March 2024",
         "topic":["linux","http"]
     },
-    {
-        "title":"Try Hack Me - Overpass.md2",
-        "description":`A linux based machine with weak configuration
-                          dddd dddddddddd ddddddddddddddd dddddddddddddd ddddd
-                          ddddddddd ddddddddd dddddddddddddddd dddddddddddd dddddddd dd
-                          d ddd ddd d d d d d d   `,
-        "image":"static/images/img2.jpg",
-        "url":"./overpass.pdf",
-        "date":"2 March 2024",
-        "topic":["linux","http"]
-    }
+    
 ];
 
-for (var i = 0; i < data.length; i++) {
-    var html = document.getElementById("content")
-    var html2 = document.getElementById("contents")
-    var innerHtml = `
+var html = document.getElementById("content");
+if (html !== null) {
+    for (var i = 0; i < data.length; i++) {
+        var html = document.getElementById("content")
+        // let recent = document.getElementById("recently_added")
+        var innerHtml = `
     
-    <div id="existing-container" class="w-5/6 mx-auto mt-5 overflow-hidden relative">
-    <a href=${data[i]["url"]}>
-        <div class="flex rounded-lg h-40 justify-between " style="background-color: #232328;">
-            <div class="w-3/4 px-5">
-                <p class="text-lg my-2 text-white">${data[i]["title"]}</p>
-                <p class="line-clamp-3 overflow-hidden text-gray-300 text-sm">${data[i]["description"]}</p>
-                <div class="flex items-center mt-4 text-sm font-light absolute bottom-7 ">
-                    <p class="text-gray-400 line-clamp-2">${data[i]["date"]}</p>
-                    <p class="text-gray-400 line-clamp-2">${data[i]["topic"]}</p>
+            <a href=${data[i]["url"]}>
+                <div class="background rounded-xl mt-4 flex items-center justify-between h-40">
+                    <div class="w-3/4 p-5">
+                        <p class="text-xl font-semibold my-2">${data[i]["title"]}</p>
+                        <p class="txt_color font-semibold">${data[i]["description"]}</p>
+                    </div>
+                    <div class="h-full">
+                        <img src=${data[i]["image"]} alt="" class="w-full h-full object-cover rounded-l-2xl">
+                    </div>
                 </div>
-            </div>
-            <div class="">
-                <img src=${data[i]["image"]} class="h-full rounded-r-lg" alt="">
-            </div>
-        </div>
-    </a>
-</div>
-
-
-    `
-    html.innerHTML += innerHtml;
-    html2.innerHTML += innerHtml;
-  }
-
-// Function to handle screen size change
-function handleScreenSize() {
-    var screenWidth = window.innerWidth;
-
-    // Example: Log screen width
-    console.log("Screen width: " + screenWidth);
-
-    var phoneElement = document.getElementById("phone");
-    var desktopElement = document.getElementById("desktop");
-    var desktopElement2 = document.getElementById("desktop2");
-
-
-    // Example: Respond to screen size
-    if (screenWidth < 768) {
-        // Phone
-        console.log("Phone detected");
-        phoneElement.style.height = "auto";
-        desktopElement.style.height = "0";
-        phoneElement.style.display ="block"
-        desktopElement2.style.display="none"
-    } else {
-        // Desktop
-        console.log("Desktop detected");
-        phoneElement.style.height = "0";
-        desktopElement.style.height = "auto";
-        phoneElement.style.display ="none"
-        desktopElement2.style.display="block"
-
+                <div class="flex items-center space-x-5 text-sm font-light text-yellow-400">
+                    <p>${data[i]["date"]}</p>
+                    <p>${data[i]["topic"]}</p>
+                </div>
+            </a> 
+    
+        `
+    
+        html.innerHTML += innerHtml;
+        // recent.innerHTML += `<a href="${data[i]["url"]}" class="border-l pl-2 mt-2 text-sm hover:underline hover:text-white">${data[i]["title"]}</a> <br>`
     }
+  }
+function handleSubmit(event) {
+    event.preventDefault();
+
+    // Get the form input values
+    const email = document.getElementById('email').value;
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const message = document.getElementById('message').value;
+    
+    // Check if any of the fields are empty
+    if (email.trim() === '' || phoneNumber.trim() === '' || message.trim() === '') {
+        alert('Please fill in all the fields.');
+        return;
+    }
+
+    alert("HINT!!!lamphilosopher101@gmail.com")
 }
 
-// Initial call to handle screen size
-handleScreenSize();
-
-// Event listener for screen size change
-window.addEventListener('resize', handleScreenSize);
-
-// Get the current page URL
-var currentPageURL = window.location.href;
-
-// Log the current page URL
-console.log("Current Page URL: " + currentPageURL);
+document.getElementById('contact').addEventListener('submit', handleSubmit);
