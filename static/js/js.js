@@ -54,7 +54,7 @@ var data=[
         "topic":["scanning","smb","john","ssh cracking","private key"],
     },
     {
-        "title":"cyborg : TryHackMe",
+        "title":"Cyborg : TryHackMe",
         "description":`With ssh and http open, I did dir enumeration which yielded a few directories. I found the passwrd, ssh into the machine where all I had to do was priv escalation. I exploited the sudo privileges
         given to the user on a file.`,
         "image":"./static/images/cyborg.png",
@@ -80,7 +80,7 @@ var data=[
         "topic":["linux","ssh","priv escalation","base6t4","gtfobins"],
     },
     {
-        "title":"skynet : TryHackMe",
+        "title":"Skynet : TryHackMe",
         "description":`This CTF led to discovery of multiple dir after enumeration. Then I went to smb which had had anonymous login where I found a wordlist of passwords which I bruteforced the user.
         I established a low priv shell and after running linpeas I found a vulnerability which led to root privileges.`,
         "image":"./static/images/skynet.png",
@@ -104,7 +104,16 @@ var data=[
         "date":"6 April 2024",
         "topic":["vpn","ubuntu","tun0","scapy","python"],
     },
-    // {
+    {
+        "title":"Sometimes GIT Happens : TryHackMe",
+        "description":`This room looks into git and version control. By downloading the files, you can view the git logs to see which commit stands out,
+        that can expose data before a patch/ development is made. In this lab, it was before data was obfsucated to hide plain text password and username.`,
+        "image":"./static/images/gitHappens.png",
+        "url":"./static/pdf/gitHappens.pdf",
+        "date":"15 May 2024",
+        "topic":["git","wget","html","js","base64"],
+    },
+     // {
     //     "title":"",
     //     "description":``,
     //     "image":"",
