@@ -89,13 +89,29 @@ var data=[
         "topic":["linux","smb","linpeas","priv escalation","reverse shell","CVE"],
     },
     {
-        "title":"",
-        "description":``,
-        "image":"",
-        "url":"",
-        "date":"",
-        "topic":"",
+        "title":"The Mitnick Attack : Kevin Mitnick",
+        "description":`The Mitnick attack is a type of Denial of Service (DoS) attack that was first demonstrated by Kevin Mitnick in 1994. It involves filling a server’s memory with half-open SYN requests from spoofed IP addresses, effectively preventing the server from responding to any other req`,
+        "image":"./static/images/mitnick.png",
+        "url":"./static/pdf/mitnick.pdf",
+        "date":"27 March 2024",
+        "topic":["DOS","Ubuntu","TCP","python","tcpdump","wireshark","rsh"],
     },
+    {
+        "title":"VPN Tunnelling SeedLab",
+        "description":`Creating and configuring a tunnul interface to send data to be received and forwarded ny another machine`,
+        "image":"./static/images/vpn.png",
+        "url":"./static/pdf/vpn.pdf",
+        "date":"6 April 2024",
+        "topic":["vpn","ubuntu","tun0","scapy","python"],
+    },
+    // {
+    //     "title":"",
+    //     "description":``,
+    //     "image":"",
+    //     "url":"",
+    //     "date":"",
+    //     "topic":"",
+    // },
 
 ];
 var html = document.getElementById("content");
