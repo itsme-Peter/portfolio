@@ -1,4 +1,12 @@
 var data=[
+         {
+        "title":"Python Sodoku Solver Script",
+        "description":`Uses numpy to define a grid matrix, uses backtracking algo to solve and fill in the missing values defined by 0`,
+        "image":"./static/images/sodoku.png",
+        "url":"./static/pdf/sodokuSolver.pdf",
+        "date":"17 May 2024",
+        "topic":["python","backtacking","numpy"],
+    },
     {
         "title":"File Inclusion Vulnerability and Mitigation.",
         "description":"Local and Remote file inclusion is among the top 10 OWASP vulnerabilities. They can lead to Remote Code Execution,Unauthorized data access",
