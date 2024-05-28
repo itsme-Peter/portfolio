@@ -1,5 +1,13 @@
 var data=[
          {
+        "title":"Security Engineer: Log Analysis TryHackMe",
+        "description":`log analyis is a crucial part of information and evidence gathering. It outlines the different types, formats and standards of logs. Various ways and tools to analyze, store and manage them.`,
+        "image":"./static/images/logs.png",
+        "url":"./static/pdf/logs.pdf",
+        "date":"29 May 2024",
+        "topic":["logs","linux","rsyslog"],
+    },
+         {
         "title":"Python Sodoku Solver Script",
         "description":`Uses numpy to define a grid matrix, uses backtracking algo to solve and fill in the missing values defined by 0`,
         "image":"./static/images/sodoku.png",
