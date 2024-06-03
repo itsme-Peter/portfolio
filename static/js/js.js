@@ -1,5 +1,13 @@
 var data=[
          {
+        "title":"Bullet Proof Penguin: Hardening Linux",
+        "description":`At first, the system has a large attack surface that can be exploited. We need to remove unused and unecessary services running. From Telnet to internet facing databases.`,
+        "image":"./static/images/penguin.jpg",
+        "url":"./static/pdf/bulletProofPenguin.pdf",
+        "date":"4 Jun 2024",
+        "topic":["Linux","SSH","Telenet","mysql","redis"],
+    },
+         {
         "title":"Linux Process Analysis",
         "description":`To identify Indicators of Compromise, we need to identify the baseline which is can be made by defining the normal systems processes, current running, cronjobs, services and auto scripts. Configurations have to be looked to avoid mishaps.`,
         "image":"./static/images/processAnalysis.jpg",
@@ -143,7 +151,7 @@ var data=[
     //     "image":"",
     //     "url":"",
     //     "date":"",
-    //     "topic":"",
+    //     "topic":[],
     // },
 
 ];
