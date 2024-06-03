@@ -1,5 +1,13 @@
 var data=[
          {
+        "title":"Linux Process Analysis",
+        "description":`To identify Indicators of Compromise, we need to identify the baseline which is can be made by defining the normal systems processes, current running, cronjobs, services and auto scripts. Configurations have to be looked to avoid mishaps.`,
+        "image":"./static/images/processAnalysis.jpg",
+        "url":"./static/pdf/processAnalysis.pdf",
+        "date":"3 Jun 2024",
+        "topic":["Linux","Cronjobs","Services"],
+    },
+         {
         "title":"Security Engineer: Log Analysis TryHackMe",
         "description":`log analyis is a crucial part of information and evidence gathering. It outlines the different types, formats and standards of logs. Various ways and tools to analyze, store and manage them.`,
         "image":"./static/images/logs.png",
