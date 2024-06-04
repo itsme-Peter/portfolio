@@ -1,5 +1,14 @@
 var data=[
          {
+        "title":"Tardigrade Linux Persistence",
+        "description":`This machine explore different ways in which attackers aim to maintain persistence to a system. Different ways are employed such as concealing reverse shells in bash files or when a root user logs on.`,
+        "image":"./static/images/tardigrade.png",
+        "url":"./static/pdf/tardigrade.pdf",
+        "date":"4 June 2024",
+        "topic":["linux","persistence",".bashrc"],
+    },
+
+         {
         "title":"Bullet Proof Penguin: Hardening Linux",
         "description":`At first, the system has a large attack surface that can be exploited. We need to remove unused and unecessary services running. From Telnet to internet facing databases.`,
         "image":"./static/images/penguin.jpg",
