@@ -1,5 +1,13 @@
 var data=[
          {
+        "title":"Brick by Brick",
+        "description":`This is a wordpress application, it has CVE-2024–25600, discovered on Feb 2024, this allows for remote code execution allowing data exposure and malicious code execution which is also unauthenticated. All it takes is exploitation of the wordpress brick theme exploitaion.`,
+        "image":"./static/images/bricks.png",
+        "url":"./static/pdf/bricksHeist.pdf",
+        "date":"5 Jun 2024",
+        "topic":["wordpress","RCE","encodeing and decoding","wallet"],
+    },
+         {
         "title":"Tardigrade Linux Persistence",
         "description":`This machine explore different ways in which attackers aim to maintain persistence to a system. Different ways are employed such as concealing reverse shells in bash files or when a root user logs on.`,
         "image":"./static/images/tardigrade.png",
