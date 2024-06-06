@@ -1,5 +1,13 @@
 var data=[
          {
+        "title":"Creative : Vulnerable Web App with some misconfigurations",
+        "description":`From the outside, the app looks to have been secure. That is until you enumerate to find its subdomain which has a misconfiguration. this allows us to list dir and files to gain valuable information which potentially allows for escalation into the system.`,
+        "image":"./static/images/creative.svg",
+        "url":"./static/pdf/creative.pdf",
+        "date":"6 Jun 2024",
+        "topic":["Linux","SSRF","ssh","priv escalation"],
+    },
+         {
         "title":"Brick by Brick",
         "description":`This is a wordpress application, it has CVE-2024–25600, discovered on Feb 2024, this allows for remote code execution allowing data exposure and malicious code execution which is also unauthenticated. All it takes is exploitation of the wordpress brick theme exploitaion.`,
         "image":"./static/images/bricks.png",
