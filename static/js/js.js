@@ -1,5 +1,13 @@
 var data=[
          {
+        "title":"Dreaming : Solve the riddle that dreams have woven",
+        "description":`It is an apche default web app on the outside. Directory enumeration unveils the pluck CMS which is vulnerable to remote file upload. This provides us with a shell which we use to pivot from one use to the other gaining different permissions.`,
+        "image":"./static/images/dreaming.png",
+        "url":"./static/pdf/dreaming.pdf",
+        "date":"6 Jun 2024",
+        "topic":["Linux","pivoting","mysql"],
+    },
+         {
         "title":"Creative : Vulnerable Web App with some misconfigurations",
         "description":`From the outside, the app looks to have been secure. That is until you enumerate to find its subdomain which has a misconfiguration. this allows us to list dir and files to gain valuable information which potentially allows for escalation into the system.`,
         "image":"./static/images/creative.svg",
