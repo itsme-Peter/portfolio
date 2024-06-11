@@ -1,10 +1,18 @@
 var data=[
          {
+        "title":"Web scrapping : selenium-webdriver,beautiful-soup",
+        "description":`This was all about data scrapping from a lawyer website, where I was to get personal data (name. company,phone,website,and location).  This was an easy part as it involved using selenium together with chrome driver, then I used beautiful-soup to find the elements I needed in the DOM.`,
+        "image":"./static/images/scrapy.png",
+        "url":"./static/pdf/scrapping.pdf",
+        "date":"10 June 2024",
+        "topic":["python","selenium","beautiful-soup","pandas","dataframe","CSV"],
+    },
+         {
         "title":"Dreaming : Solve the riddle that dreams have woven",
         "description":`It is an apche default web app on the outside. Directory enumeration unveils the pluck CMS which is vulnerable to remote file upload. This provides us with a shell which we use to pivot from one use to the other gaining different permissions.`,
         "image":"./static/images/dreaming.png",
         "url":"./static/pdf/dreaming.pdf",
-        "date":"6 Jun 2024",
+        "date":"6 June 2024",
         "topic":["Linux","pivoting","mysql"],
     },
          {
@@ -12,7 +20,7 @@ var data=[
         "description":`From the outside, the app looks to have been secure. That is until you enumerate to find its subdomain which has a misconfiguration. this allows us to list dir and files to gain valuable information which potentially allows for escalation into the system.`,
         "image":"./static/images/creative.svg",
         "url":"./static/pdf/creative.pdf",
-        "date":"6 Jun 2024",
+        "date":"6 June 2024",
         "topic":["Linux","SSRF","ssh","priv escalation"],
     },
          {
