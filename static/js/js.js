@@ -1,14 +1,14 @@
 var data=[
          {
         "title":"Unified:HackTheBox",
-        "description":`explores the effects of exploiting Log4J in a very well known network appliance monitoring
+        "description":`It explores the effects of exploiting Log4J in a very well known network appliance monitoring
                            system called "UniFi". This box will show you how to set up and install the necessary packages and tools to
                            exploit UniFi by abusing the Log4J vulnerability and manipulate a POST header called remember , giving you
                            a reverse shell on the machine. You'll also change the administrator's password by altering the hash saved
                            in the MongoDB instance that is running on the system, which will allow access to the administration panel
                            and leads to the disclosure of the administrator's SSH password.`,
-        "image":"/static/images/unified.png",
-        "url":"/static/pdf/unified.pdf",
+        "image":"./static/images/unified.png",
+        "url":"./static/pdf/unified.pdf",
         "date":"",
         "topic":["Reconnaissance","Vulnerability Assessment","Databases","Code Injection","Default Credentials"],
     },
@@ -17,7 +17,7 @@ var data=[
         "description":`This was all about data scrapping from a lawyer website, where I was to get personal data (name. company,phone,website,and location).  This was an easy part as it involved using selenium together with chrome driver, then I used beautiful-soup to find the elements I needed in the DOM.`,
         "image":"./static/images/scrapy.png",
         "url":"./static/pdf/scrapping.pdf",
-        "date":"10 June 2024",
+        "date":"",
         "topic":["python","selenium","beautiful-soup","pandas","dataframe","CSV"],
     },
          {
