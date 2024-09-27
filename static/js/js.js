@@ -2,7 +2,7 @@ var data=[
       {
         "title":"GreenHorn: HackTheBox",
         "description":``,
-        "image":"./static/images/GreenHorn.png",
+        "image":"./static/images/greenHorn.png",
         "url":"./static/pdf/greenHorn.pdf",
         "date":"",
         "topic":["Pluck","CVE","Hash Cracking","Depix","Pixelation"],
@@ -11,7 +11,7 @@ var data=[
         "title":"BoardLight.pdf",
         "description":``,
         "image":"./static/images/boardLight.png",
-        "url":"./static/pdf/boardLight.pdf",
+        "url":"./static/pdf/BoardLight.pdf",
         "date":"",
         "topic":[" CVE-2023-30253","gnu-enlightenment","mysql"],
     },
