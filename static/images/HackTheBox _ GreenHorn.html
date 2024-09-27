@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://benheater.com/hackthebox-greenhorn/ -->
+<html lang="en" data-color-scheme="system"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>HackTheBox | GreenHorn</title>
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#4CBB01">
+<link rel="preload" href="./HackTheBox _ GreenHorn_files/app.min.js" as="script">
+<link rel="preload" href="./HackTheBox _ GreenHorn_files/app.min.css" as="style">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link rel="stylesheet" href="./HackTheBox _ GreenHorn_files/css2" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;" crossorigin="">
+<style> body { --font-body: 'Roboto Mono', monospace; --font-headings: 'Roboto Mono', monospace; } </style>
+<script async="" defer="" src="./HackTheBox _ GreenHorn_files/app.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./HackTheBox _ GreenHorn_files/app.min.css">
+<script>
+  // Basic Config
+  let themeSettings = {
+    ghostVersion: 'v5.0',
+    searchUrl: `https://benheater.com`,
+    searchKey: ``,
+    searchInContent: false,
+    defaultColorScheme: `System`,
+    enableImageLightbox: true,
+    openLinksInNewTab: false
+  }
+</script>
+<style>
+  :root {
+    --global-theme-notifications: none; /* flex/none */
+    --global-hero-title-color: var(--color-primary);
+    --global-button-gradient: var(--color-primary);
+    --global-max-width: 1280px; /* site max width */
+    --global-content-width: 680px; /* post-content-width */
+    --global-wide-width: 960px; /* site max width */
+    --global-radius: 8px; /* default radius */
+    --global-radius-rounded: 30px; /* radius for rounded elements */
+    --global-gallery-gap: 1em; /* Image gallery distance between images */
+    --global-hyphens: none; /* none/auto */
+    --global-header-height: 80px;
+    --global-progress-bar: visible; /* visible/hidden */
+    --global-content-preview-fading: 0%; /* 50%-100% for fading effect */
+  }
+</style>
+<script>
+  let preferredTheme = localStorage.getItem('PREFERRED_COLOR_SCHEME') || themeSettings.defaultColorScheme.toLowerCase();
+  document.documentElement.setAttribute('data-color-scheme', preferredTheme);
+  
+  // Global values needed
+  const themeGlobal = {
+    currentPage: parseInt(''),
+    nextPage: parseInt(''),
+    nextPageLink: '',
+    maxPages: parseInt(''), 
+    lastPage: `` === `` ? true : false,
+    postsPerPage: parseInt('9'),
+    scrollPos: 0
+  }
+
+  // Calculate contrast for primary color (black/white);
+  function getContrast(hexcolor) {
+    // If a leading # is provided, remove it
+    if (hexcolor.slice(0, 1) === '#') { hexcolor = hexcolor.slice(1); }
+    // If a three-character hexcode, make six-character
+    if (hexcolor.length === 3) { hexcolor = hexcolor.split('').map(function (hex) { return hex + hex;}).join(''); }
+    // Convert to RGB value
+    var r = parseInt(hexcolor.substr(0,2),16); var g = parseInt(hexcolor.substr(2,2),16); var b = parseInt(hexcolor.substr(4,2),16);
+    // Get YIQ ratio
+    var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    // Check contrast
+    return (yiq >= 128) ? '#000' : '#fff';
+  };
+
+  let style = document.createElement('style');
+  style.innerHTML = `:root { --color-primary-contrast: ${getContrast("#4CBB01")} }`
+  document.getElementsByTagName('head')[0].appendChild(style);
+</script><style>:root { --color-primary-contrast: #000 }</style>
+<meta name="description" content="In this walkthrough, I demonstrate how I obtained complete ownership of GreenHorn on HackTheBox">
+<link rel="icon" href="https://benheater.com/content/images/size/w256h256/2023/12/pour-over-4.png" type="image/png">
+<link rel="canonical" href="https://benheater.com/hackthebox-greenhorn/">
+<meta name="referrer" content="no-referrer-when-downgrade">
+<link rel="amphtml" href="https://benheater.com/hackthebox-greenhorn/amp/">
+<meta property="og:site_name" content="0xBEN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HackTheBox | GreenHorn">
+<meta property="og:description" content="In this walkthrough, I demonstrate how I obtained complete ownership of GreenHorn on HackTheBox">
+<meta property="og:url" content="https://benheater.com/hackthebox-greenhorn/">
+<meta property="og:image" content="https://benheater.com/content/images/2024/07/GreenHorn.png">
+<meta property="article:published_time" content="2024-07-23T07:26:00.000Z">
+<meta property="article:modified_time" content="2024-09-19T16:24:13.000Z">
+<meta property="article:tag" content="HackTheBox">
+<meta property="article:tag" content="Attack">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Easy Challenge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HackTheBox | GreenHorn">
+<meta name="twitter:description" content="In this walkthrough, I demonstrate how I obtained complete ownership of GreenHorn on HackTheBox">
+<meta name="twitter:url" content="https://benheater.com/hackthebox-greenhorn/">
+<meta name="twitter:image" content="https://benheater.com/content/images/2024/07/GreenHorn.png">
+<meta name="twitter:label1" content="Written by">
+<meta name="twitter:data1" content="0xBEN">
+<meta name="twitter:label2" content="Filed under">
+<meta name="twitter:data2" content="HackTheBox, Attack, CTF, Linux, Easy Challenge">
+<meta name="twitter:site" content="@_0xBEN_">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="975">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "0xBEN",
+        "url": "https://benheater.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://benheater.com/content/images/size/w256h256/2023/12/pour-over-4.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "0xBEN",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://benheater.com/content/images/2023/12/pour-over-7.png",
+            "width": 1024,
+            "height": 1024
+        },
+        "url": "https://benheater.com/author/0xben/",
+        "sameAs": []
+    },
+    "headline": "HackTheBox | GreenHorn",
+    "url": "https://benheater.com/hackthebox-greenhorn/",
+    "datePublished": "2024-07-23T07:26:00.000Z",
+    "dateModified": "2024-09-19T16:24:13.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://benheater.com/content/images/2024/07/GreenHorn.png",
+        "width": 1200,
+        "height": 975
+    },
+    "keywords": "HackTheBox, Attack, CTF, Linux, Easy Challenge",
+    "description": "In this walkthrough, I demonstrate how I obtained complete ownership of GreenHorn on HackTheBox",
+    "mainEntityOfPage": "https://benheater.com/hackthebox-greenhorn/"
+}
+    </script>
+<meta name="generator" content="Ghost 5.94">
+<link rel="alternate" type="application/rss+xml" title="0xBEN" href="https://benheater.com/rss/">
+<script defer="" src="./HackTheBox _ GreenHorn_files/portal.min.js" data-i18n="false" data-ghost="https://benheater.com/" data-key="8ad3d94ea8843b560b66954e2b" data-api="https://benheater.com/ghost/api/content/" crossorigin="anonymous"></script><style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style><script async="" src="./HackTheBox _ GreenHorn_files/saved_resource"></script>
+<script defer="" src="./HackTheBox _ GreenHorn_files/sodo-search.min.js" data-key="8ad3d94ea8843b560b66954e2b" data-styles="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/main.css" data-sodo-search="https://benheater.com/" crossorigin="anonymous"></script>
+<link href="https://benheater.com/webmentions/receive/" rel="webmention">
+<script defer="" src="./HackTheBox _ GreenHorn_files/cards.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./HackTheBox _ GreenHorn_files/cards.min.css">
+<script defer="" src="./HackTheBox _ GreenHorn_files/member-attribution.min.js"></script><style>:root {--ghost-accent-color: #4CBB01;}</style>
+
+<script defer="" data-domain="benheater.com" src="./HackTheBox _ GreenHorn_files/script.js"></script>
+<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+<style>
+  /** CSS dependencies from prism.js download page **/
+  pre[data-line]{position:relative;padding:1em 0 1em 3em}.line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}@media print{.line-highlight{-webkit-print-color-adjust:exact;color-adjust:exact}}.line-highlight:before,.line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}.line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}.line-numbers .line-highlight:after,.line-numbers .line-highlight:before{content:none}pre[id].linkable-line-numbers span.line-numbers-rows{pointer-events:all}pre[id].linkable-line-numbers span.line-numbers-rows>span:before{cursor:pointer}pre[id].linkable-line-numbers span.line-numbers-rows>span:hover:before{background-color:rgba(128,128,128,.2)}
+  pre[class*=language-].line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}pre[class*=language-].line-numbers>code{position:relative;white-space:inherit}.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:0;font-size:100%;left:-3.8em;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.line-numbers-rows>span{display:block;counter-increment:linenumber}.line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}
+  div.code-toolbar{position:relative}div.code-toolbar>.toolbar{position:absolute;z-index:10;top:.3em;right:.2em;transition:opacity .3s ease-in-out;opacity:0}div.code-toolbar:hover>.toolbar{opacity:1}div.code-toolbar:focus-within>.toolbar{opacity:1}div.code-toolbar>.toolbar>.toolbar-item{display:inline-block}div.code-toolbar>.toolbar>.toolbar-item>a{cursor:pointer}div.code-toolbar>.toolbar>.toolbar-item>button{background:0 0;border:0;color:inherit;font:inherit;line-height:normal;overflow:visible;padding:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}div.code-toolbar>.toolbar>.toolbar-item>a,div.code-toolbar>.toolbar>.toolbar-item>button,div.code-toolbar>.toolbar>.toolbar-item>span{color:#bbb;font-size:.8em;padding:0 .5em;background:#f5f2f0;background:rgba(224,224,224,.2);box-shadow:0 2px 0 0 rgba(0,0,0,.2);border-radius:.5em}div.code-toolbar>.toolbar>.toolbar-item>a:focus,div.code-toolbar>.toolbar>.toolbar-item>a:hover,div.code-toolbar>.toolbar>.toolbar-item>button:focus,div.code-toolbar>.toolbar>.toolbar-item>button:hover,div.code-toolbar>.toolbar>.toolbar-item>span:focus,div.code-toolbar>.toolbar>.toolbar-item>span:hover{color:inherit;text-decoration:none}
+  .token.punctuation.brace-hover,.token.punctuation.brace-selected{outline:solid 1px}.rainbow-braces .token.punctuation.brace-level-1,.rainbow-braces .token.punctuation.brace-level-5,.rainbow-braces .token.punctuation.brace-level-9{color:#e50;opacity:1}.rainbow-braces .token.punctuation.brace-level-10,.rainbow-braces .token.punctuation.brace-level-2,.rainbow-braces .token.punctuation.brace-level-6{color:#0b3;opacity:1}.rainbow-braces .token.punctuation.brace-level-11,.rainbow-braces .token.punctuation.brace-level-3,.rainbow-braces .token.punctuation.brace-level-7{color:#26f;opacity:1}.rainbow-braces .token.punctuation.brace-level-12,.rainbow-braces .token.punctuation.brace-level-4,.rainbow-braces .token.punctuation.brace-level-8{color:#e0e;opacity:1}
+  
+  /** custom prism.js theming -- https://github.com/PrismJS/prism-themes **/
+  code[class*=language-],pre[class*=language-]{color:#87a1c0;font-size:13px;text-shadow:none;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-]::mozselection,code[class*=language-]::selection,pre[class*=language-]::mozselection,pre[class*=language-]::selection{text-shadow:none;background:#8aa3c1}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto;background:#001833}:not(pre)>code[class*=language-]{padding:.1em .3em;border-radius:.3em;color:#db4c69;background:#f9f2f4}.namespace{opacity:.7}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#7a7a7a}.token.punctuation{color:#9F81D3}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#0e8eb9}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color: #63b08f}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url{color:#c7c7c7;background:#001833}.token.atrule,.token.attr-value,.token.keyword{color:#a09c2c}.token.function{color:#a09c2c}.token.important,.token.regex,.token.variable{color:#C25AB9}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}pre[data-line]{position:relative}pre[class*=language-]>code[class*=language-]{position:relative;z-index:1}.line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:#b5b2a6;box-shadow:inset 5px 0 0 #d7cba8;z-index:0;pointer-events:none;line-height:inherit;white-space:pre}
+</style>
+
+<style>
+  /** Word wrap all elements **/
+  .content * { word-break:break-word; }
+
+  /** Tighten up margins and spacing around code blocks **/
+  .content figure[class*=kg-card] pre[class*=language-] {
+    margin: 0 0 0;
+  }
+  
+  /** Shrink the fonts and spacing of captions below kg-card elements **/
+  .content figure[class*=kg-card] figcaption p span {
+    font-size: .8rem;
+    font-style: italic;
+    font-weight: var(--font-weight-medium);
+    padding: var(--gap-sm);
+    text-align: center;
+  }
+
+  /** Drop the added margin beneath captions, as the kg-card elements have sufficient margin **/
+  .content figure[class*=kg-card] figcaption p {
+      margin-bottom: 0;
+  }
+
+  /** Reduce the brightness of the hero image on the landing page **/
+  .hero[data-image-style=background-full] .hero__media img, .hero[data-image-style=background] .hero__media img {
+    filter: brightness(.80);
+  }
+
+  /** Don't use the Fumio 16/9 aspect ratio on post images **/
+  div.hero.is-post .hero__img {
+    aspect-ratio: auto;
+  }
+
+  /** Override bookmark colorings **/
+  .kg-bookmark-card a.kg-bookmark-container, .kg-bookmark-card a.kg-bookmark-container:hover {
+    background: #f2f2f2;
+  }
+
+  .kg-bookmark-description {
+    color: #4d4d4d;
+  }
+</style>
+<style class="fslightbox-styles">.fslightbox-absoluted{position:absolute;top:0;left:0}.fslightbox-fade-in{animation:fslightbox-fade-in .3s cubic-bezier(0,0,.7,1)}.fslightbox-fade-out{animation:fslightbox-fade-out .3s ease}.fslightbox-fade-in-strong{animation:fslightbox-fade-in-strong .3s cubic-bezier(0,0,.7,1)}.fslightbox-fade-out-strong{animation:fslightbox-fade-out-strong .3s ease}@keyframes fslightbox-fade-in{from{opacity:.65}to{opacity:1}}@keyframes fslightbox-fade-out{from{opacity:.35}to{opacity:0}}@keyframes fslightbox-fade-in-strong{from{opacity:.3}to{opacity:1}}@keyframes fslightbox-fade-out-strong{from{opacity:1}to{opacity:0}}.fslightbox-cursor-grabbing{cursor:grabbing}.fslightbox-full-dimension{width:100%;height:100%}.fslightbox-open{overflow:hidden;height:100%}.fslightbox-flex-centered{display:flex;justify-content:center;align-items:center}.fslightbox-opacity-0{opacity:0!important}.fslightbox-opacity-1{opacity:1!important}.fslightbox-scrollbarfix{padding-right:17px}.fslightbox-transform-transition{transition:transform .3s}.fslightbox-container{font-family:Arial,sans-serif;position:fixed;top:0;left:0;background:linear-gradient(rgba(30,30,30,.9),#000 1810%);touch-action:pinch-zoom;z-index:1000000000;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}.fslightbox-container *{box-sizing:border-box}.fslightbox-svg-path{transition:fill .15s ease;fill:#ddd}.fslightbox-nav{height:45px;width:100%;position:absolute;top:0;left:0}.fslightbox-slide-number-container{display:flex;justify-content:center;align-items:center;position:relative;height:100%;font-size:15px;color:#d7d7d7;z-index:0;max-width:55px;text-align:left}.fslightbox-slide-number-container .fslightbox-flex-centered{height:100%}.fslightbox-slash{display:block;margin:0 5px;width:1px;height:12px;transform:rotate(15deg);background:#fff}.fslightbox-toolbar{position:absolute;z-index:3;right:0;top:0;height:100%;display:flex;background:rgba(35,35,35,.65)}.fslightbox-toolbar-button{height:100%;width:45px;cursor:pointer}.fslightbox-toolbar-button:hover .fslightbox-svg-path{fill:#fff}.fslightbox-slide-btn-container{display:flex;align-items:center;padding:12px 12px 12px 6px;position:absolute;top:50%;cursor:pointer;z-index:3;transform:translateY(-50%)}@media (min-width:476px){.fslightbox-slide-btn-container{padding:22px 22px 22px 6px}}@media (min-width:768px){.fslightbox-slide-btn-container{padding:30px 30px 30px 6px}}.fslightbox-slide-btn-container:hover .fslightbox-svg-path{fill:#f1f1f1}.fslightbox-slide-btn{padding:9px;font-size:26px;background:rgba(35,35,35,.65)}@media (min-width:768px){.fslightbox-slide-btn{padding:10px}}@media (min-width:1600px){.fslightbox-slide-btn{padding:11px}}.fslightbox-slide-btn-container-previous{left:0}@media (max-width:475.99px){.fslightbox-slide-btn-container-previous{padding-left:3px}}.fslightbox-slide-btn-container-next{right:0;padding-left:12px;padding-right:3px}@media (min-width:476px){.fslightbox-slide-btn-container-next{padding-left:22px}}@media (min-width:768px){.fslightbox-slide-btn-container-next{padding-left:30px}}@media (min-width:476px){.fslightbox-slide-btn-container-next{padding-right:6px}}.fslightbox-down-event-detector{position:absolute;z-index:1}.fslightbox-slide-swiping-hoverer{z-index:4}.fslightbox-invalid-file-wrapper{font-size:22px;color:#eaebeb;margin:auto}.fslightbox-video{object-fit:cover}.fslightbox-youtube-iframe{border:0}.fslightboxl{display:block;margin:auto;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:67px;height:67px}.fslightboxl div{box-sizing:border-box;display:block;position:absolute;width:54px;height:54px;margin:6px;border:5px solid;border-color:#999 transparent transparent transparent;border-radius:50%;animation:fslightboxl 1.2s cubic-bezier(.5,0,.5,1) infinite}.fslightboxl div:nth-child(1){animation-delay:-.45s}.fslightboxl div:nth-child(2){animation-delay:-.3s}.fslightboxl div:nth-child(3){animation-delay:-.15s}@keyframes fslightboxl{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.fslightbox-source{position:relative;z-index:2;opacity:0}</style><style>.gh-portal-account-header{display:flex;flex-direction:column;align-items:center;margin:0 0 32px}.gh-portal-account-header .gh-portal-avatar{margin:6px 0 8px!important}.gh-portal-account-data{margin-bottom:40px}footer.gh-portal-account-footer{display:flex}.gh-portal-account-footer.paid{margin-top:12px}.gh-portal-account-footermenu{display:flex;align-items:center;list-style:none;padding:0;margin:0}.gh-portal-account-footerright{display:flex;flex-grow:1;align-items:center;justify-content:flex-end}.gh-portal-account-footermenu li{margin-right:16px}.gh-portal-account-footermenu li:last-of-type{margin-right:0}.gh-portal-freeaccount-newsletter{display:flex;align-items:center;justify-content:space-between;margin-top:24px}.gh-portal-freeaccount-newsletter .label{display:flex;flex-direction:column;flex-grow:1}.gh-portal-free-ctatext{margin-top:-12px}.gh-portal-cancelcontinue-container{margin:24px 0 32px}.gh-portal-list-detail .gh-portal-email-notice{display:flex;align-items:center;gap:5px;margin-top:6px;color:var(--red);font-weight:500;font-size:1.25rem;letter-spacing:.2px}.gh-portal-email-notice-icon{width:20px;height:20px}.gh-portal-billing-button-loader{width:32px;height:32px;margin-right:-3px;opacity:.6}.gh-portal-product-icon{width:52px;margin-right:12px;border-radius:2px}.gh-portal-account-discountcontainer{position:relative;display:flex;align-items:center}.gh-portal-account-old-price{text-decoration:line-through;color:var(--grey9)!important}.gh-portal-account-tagicon{width:16px;height:16px;color:var(--brandcolor);margin-right:5px;z-index:999}@media (max-width: 390px){.gh-portal-account-footer{padding:0!important}}@media (max-width: 340px){.gh-portal-account-footer{padding:0!important;flex-wrap:wrap;gap:12px}.gh-portal-account-footer .gh-portal-account-footerright{justify-content:flex-start}}.gh-email-suppressed-page-title{margin-bottom:14px}.gh-email-suppressed-page-icon{display:block;width:38px;height:38px;margin:0 auto 18px}.gh-email-suppressed-page-text{padding:0 14px;text-align:center;color:var(--grey6)}.gh-email-faq-footer-text{color:var(--grey8)}.gh-portal-list-detail.email-newsletter .gh-email-faq-page-button{display:block;margin-top:3px}.gh-portal-action-footer .gh-email-faq-page-button{margin-left:4px}.emailReceivingFAQ .gh-portal-btn-back,.emailReceivingFAQ .gh-portal-btn-back:hover{left:calc(6vmin - 14px)}.emailReceivingFAQ .gh-portal-closeicon-container{right:calc(6vmin - 20px)}@media (max-width: 480px){.emailReceivingFAQ .gh-portal-btn-back,.emailReceivingFAQ .gh-portal-btn-back:hover{left:16px}.emailReceivingFAQ .gh-portal-closeicon-container{right:24px}}.gh-email-faq-page-button{color:var(--brandcolor);cursor:pointer;background:none;transition:color linear .1s;font-size:1.45rem}</style><style>.App{text-align:center}.App-logo{height:40vmin;pointer-events:none}@media (prefers-reduced-motion: no-preference){.App-logo{animation:App-logo-spin infinite 20s linear}}.App-header{background-color:#282c34;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:calc(10px + 2vmin);color:#fff}.App-link{color:#61dafb}@keyframes App-logo-spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}
+</style><style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
+<body class="post-template tag-hackthebox tag-attack tag-ctf tag-linux tag-easy-challenge tag-internal-tag-toc" data-bg="graph-paper">
+<div class="progress-bar" style="--scroll: 28%;"></div>
+<header class="header js-header is-floating is-not-bottom is-not-top is-pinned" data-header="floating">
+<div class="container wrapper">
+<div class="row">
+<div class="col-xs col-md-3 col-lg-2 flex">
+<a class="header__brand" href="https://benheater.com/"> <span class="header__title m-0 p-0">0xBEN</span>
+</a> </div>
+<div class="col-xs col-md-9 col-lg-10 is-rel flex items-center content-end">
+<nav class="header__menu items-center">
+<ul class="nav">
+<li class="nav-cybersecurity"><a href="https://benheater.com/cybersecurity/">Cybersecurity</a></li>
+<li class="nav-it"><a href="https://benheater.com/it/">IT</a></li>
+<li class="nav-coffee"><a href="https://benheater.com/coffee/">Coffee</a></li>
+<li class="nav-free-resources"><a href="https://benheater.com/free-training-resources-cybersec-and-it/">Free Resources</a></li>
+<li class="nav-topics"><a href="https://benheater.com/tags/">Topics</a></li>
+<li class="nav-notes"><a href="https://notes.benheater.com/" target="_blank">Notes</a></li>
+<li class="nav-have-i-helped-you"><a href="https://benheater.com/contribute/">Have I Helped You?</a></li>
+</ul>
+</nav>
+<span class="fw-600 m-l m-r text-acc">/</span>
+<a class="signup-link btn--primary radius-rounded" href="https://benheater.com/signup/">Subscribe</a>
+<div class="member-menu js-member-menu">
+<a class="signup-link" href="https://benheater.com/signup/"> <i class="icon icon-arrow-up-right icon--sm">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#arrow-up-right"></use>
+</svg>
+</i>Sign up
+</a>
+<a class="signin-link" href="https://benheater.com/signin/"> <i class="icon icon-login icon--sm">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#login"></use>
+</svg>
+</i>Sign in
+</a></div>
+<button class="btn-menu-toggle menu__toggle js-menu-open" type="button" title="Menu" aria-label="Menu">
+<span></span>
+<span></span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<div class="menu js-menu">
+<div class="menu__header flex content-end ">
+<button class="search__toggle" title="Search" aria-label="Search" data-ghost-search="">
+<i class="icon icon-search icon--md">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#search"></use>
+</svg>
+</i> </button>
+<button class="btn-menu-toggle menu__toggle is-active js-menu-close" type="button" title="Menu" aria-label="Menu">
+<span></span>
+<span></span>
+</button>
+</div>
+<nav class="menu__navigation">
+<ul class="nav">
+<li class="nav-cybersecurity"><a href="https://benheater.com/cybersecurity/">Cybersecurity</a></li>
+<li class="nav-it"><a href="https://benheater.com/it/">IT</a></li>
+<li class="nav-coffee"><a href="https://benheater.com/coffee/">Coffee</a></li>
+<li class="nav-free-resources"><a href="https://benheater.com/free-training-resources-cybersec-and-it/">Free Resources</a></li>
+<li class="nav-topics"><a href="https://benheater.com/tags/">Topics</a></li>
+<li class="nav-notes"><a href="https://notes.benheater.com/" target="_blank">Notes</a></li>
+<li class="nav-have-i-helped-you"><a href="https://benheater.com/contribute/">Have I Helped You?</a></li>
+</ul>
+<ul class="nav">
+<li class="nav-about-me"><a href="https://benheater.com/about/">About Me</a></li>
+<li class="nav-resume"><a href="https://benheater.com/resume/">Resume</a></li>
+<li class="nav-projects"><a href="https://benheater.com/projects/">Projects</a></li>
+<li class="nav-github"><a href="https://github.com/0xBEN" target="_blank">GitHub</a></li>
+<li class="nav-linkedin"><a href="https://linkedin.com/in/benjaminheater" target="_blank">LinkedIn</a></li>
+<li class="nav-twitter"><a href="https://twitter.com/_0xBEN_" target="_blank">Twitter</a></li>
+</ul>
+</nav>
+<span class="flex-1"></span>
+<div class="menu__subscribe m-b">
+<div class="bg-gradient radius flex flex-col p-lg color-white">
+<div class="menu_subscribe-content z-index-1">
+<span class="fw-700 text-16 m-b-xs is-block">Sign up to 0xBEN!</span>
+<p class="m-b opacity-070" id="menu-input-label">Cybersecurity and Coffee</p>
+<form class="subscribe-form radius-rounded" data-members-form="signup" data-style="">
+<input data-members-email="" class="w-100" type="email" autocomplete="email" placeholder="Your email address" aria-labelledby="menu-input-label" required="">
+<button class="btn btn--white" type="submit">
+<span>Subscribe</span>
+</button>
+<div class="msg-success">Great! Check your inbox and click the link.</div>
+<div class="msg-error">Sorry, something went wrong. Please try again.</div>
+</form> </div>
+</div>
+<div class="text-09 m-t-sm m-b-sm text-center text-acc">
+Already have an account? <a href="https://benheater.com/signin/">Sign in</a>
+</div>
+</div>
+<button class="menu__theme border-top js-theme-toggle">
+<span class="menu__theme--system"><i class="icon icon-brightness-half icon--sm">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#brightness-half"></use>
+</svg>
+</i>System Theme</span>
+<span class="menu__theme--light"><i class="icon icon-sun icon--sm">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#sun"></use>
+</svg>
+</i>Light Theme</span>
+<span class="menu__theme--dark"><i class="icon icon-moon icon--sm">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#moon"></use>
+</svg>
+</i>Dark Theme</span>
+</button>
+</div>
+<main class="main">
+<div class="container wrapper">
+<div class="hero is-post" data-feature-image="true" data-image-style="default">
+<div class="hero__content flex flex-col">
+<ul class="breadcrumb">
+<li class="breadcrumb-item"><a href="https://benheater.com/">Home</a></li>
+<li class="breadcrumb-item"><a href="https://benheater.com/blog/">Blog</a></li>
+<li class="breadcrumb-item"><a href="https://benheater.com/tag/hackthebox/">HackTheBox</a></li>
+</ul>
+<h1 class="hero__title">HackTheBox | GreenHorn</h1>
+<div class="hero__excerpt text-acc text-11 m-b">In this walkthrough, I demonstrate how I obtained complete ownership of GreenHorn on HackTheBox</div>
+<div class="post-info text-acc ">
+<ul class="post-info__avatars">
+<li class="author-avatar has-image">
+<a href="https://benheater.com/author/0xben/" title="0xBEN" aria-label="0xBEN">
+<img class="lazyautosizes ls-is-cached lazyloaded" data-sizes="auto" data-src="/content/images/size/w100/2023/12/pour-over-7.png" src="./HackTheBox _ GreenHorn_files/pour-over-7.png" alt="0xBEN" sizes="40px">
+</a>
+</li>
+</ul>
+<div class="post-info__detail">
+<span class="post-info__author"><a href="https://benheater.com/author/0xben/">0xBEN</a></span>
+<div class="post-info__dr">
+<time datetime="2024-07-23">Jul 23, 2024</time>
+<span class="post-info__readtime">9 min read</span>
+</div>
+</div>
+</div> </div>
+<div class="hero__media">
+<figure class="hero__figure">
+<img class="hero__img lazyautosizes lazyloaded" data-srcset="/content/images/size/w300/2024/07/GreenHorn.png 300w,
+                    /content/images/size/w600/2024/07/GreenHorn.png 600w,
+                    /content/images/size/w1000/2024/07/GreenHorn.png 1000w,
+                    /content/images/size/w2000/2024/07/GreenHorn.png 2000w" srcset="/content/images/size/w300/2024/07/GreenHorn.png 300w,
+                    /content/images/size/w600/2024/07/GreenHorn.png 600w,
+                    /content/images/size/w1000/2024/07/GreenHorn.png 1000w,
+                    /content/images/size/w2000/2024/07/GreenHorn.png 2000w" data-sizes="auto" data-src="/content/images/size/w300/2024/07/GreenHorn.png" src="./HackTheBox _ GreenHorn_files/GreenHorn.png" alt="HackTheBox | GreenHorn" sizes="680px">
+<figcaption><a href="https://www.hackthebox.com/machines/greenhorn" target="_blank"><span style="white-space: pre-wrap;">https://www.hackthebox.com/machines/greenhorn</span></a></figcaption>
+</figure>
+</div>
+</div>
+<article class="post tag-hackthebox tag-attack tag-ctf tag-linux tag-easy-challenge tag-internal-tag-toc content post-access-tiers">
+<div class="content post-sneak-peek">
+<p><strong>Initial Foothold Hint</strong></p><ul><li>Do your due diligence with the enumeration. You should find a password hash that cracks very easily on one of the services, which will lend a hand in execution of a CVE on the target.</li><li>You should be able to find a public exploit for the CVE. Or if you're especially motivated, it's not hard to manually create a payload that will work for this exploit.</li></ul><p><strong>Privilege Escalation Hint</strong></p><ul><li><strong>Lateral Pivot to Local User</strong><ul><li>Always look for the easy wins with any information already in your possession</li></ul></li><li><strong>Becoming Root</strong><ul><li>Do some research on how you can extract and deobfusacate some information found during your post-exploit enumeration</li></ul></li></ul><div class="kg-card kg-callout-card kg-callout-card-grey"><div class="kg-callout-emoji">ℹ️</div><div class="kg-callout-text">For additional hints and assistance, chat with your peers in the <a href="https://discord.gg/hackthebox?ref=benheater.com" target="_blank">HackTheBox Discord server</a></div></div><hr><figure class="kg-card kg-bookmark-card"><a class="kg-bookmark-container" href="https://www.hackthebox.com/achievement/machine/122577/617?ref=benheater.com" target="_blank"><div class="kg-bookmark-content"><div class="kg-bookmark-title">Owned GreenHorn from Hack The Box!</div><div class="kg-bookmark-description">I have just owned machine GreenHorn from Hack The Box</div><div class="kg-bookmark-metadata"><img class="kg-bookmark-icon" src="./HackTheBox _ GreenHorn_files/favicon.ico" alt=""><span class="kg-bookmark-publisher">Hack The Box</span></div></div><div class="kg-bookmark-thumbnail"><img src="./HackTheBox _ GreenHorn_files/d6fc68e29ee1ebf6e398e70f9ed42b3c.png" alt="" onerror="this.style.display = &#39;none&#39;"></div></a></figure><hr><h1 id="nmap-results">Nmap Results</h1><div class="code-toolbar"><pre class="language-text" tabindex="0"><code class="match-braces language-text"># Nmap 7.94SVN scan initiated Tue Jul 23 00:35:10 2024 as: nmap -Pn -p- --min-rate 2000 -sC -sV -oN nmap-scan.txt 10.129.191.235
+Nmap scan report for 10.129.191.235
+Host is up (0.090s latency).
+Not shown: 65532 closed tcp ports (reset)
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   256 57:d6:92:8a:72:44:84:17:29:eb:5c:c9:63:6a:fe:fd (ECDSA)
+|_  256 40:ea:17:b1:b6:c5:3f:42:56:67:4a:3c:ee:75:23:2f (ED25519)
+80/tcp   open  http    nginx 1.18.0 (Ubuntu)
+|_http-server-header: nginx/1.18.0 (Ubuntu)
+|_http-title: Did not follow redirect to http://greenhorn.htb/
+3000/tcp open  ppp?
+| fingerprint-strings:
+|   GenericLines, Help, RTSPRequest:
+|     HTTP/1.1 400 Bad Request
+|     Content-Type: text/plain; charset=utf-8
+|     Connection: close
+|     Request
+|   GetRequest:
+|     HTTP/1.0 200 OK
+|     Cache-Control: max-age=0, private, must-revalidate, no-transform
+|     Content-Type: text/html; charset=utf-8
+|     Set-Cookie: i_like_gitea=e87cdd7fda0968f0; Path=/; HttpOnly; SameSite=Lax
+|     Set-Cookie: _csrf=2KeGOfyH98KksiJs_yZG_IDydc46MTcyMTcwOTMyNTM4MTU2OTQzMg; Path=/; Max-Age=86400; HttpOnly; SameSite=Lax
+|     X-Frame-Options: SAMEORIGIN
+|     Date: Tue, 23 Jul 2024 04:35:25 GMT
+|     &lt;!DOCTYPE html&gt;
+|     &lt;html lang="en-US" class="theme-auto"&gt;
+|     &lt;head&gt;
+|     &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+|     &lt;title&gt;GreenHorn&lt;/title&gt;
+|     &lt;link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiR3JlZW5Ib3JuIiwic2hvcnRfbmFtZSI6IkdyZWVuSG9ybiIsInN0YXJ0X3VybCI6Imh0dHA6Ly9ncmVlbmhvcm4uaHRiOjMwMDAvIiwiaWNvbnMiOlt7InNyYyI6Imh0dHA6Ly9ncmVlbmhvcm4uaHRiOjMwMDAvYXNzZXRzL2ltZy9sb2dvLnBuZyIsInR5cGUiOiJpbWFnZS9wbmciLCJzaXplcyI6IjUxMng1MTIifSx7InNyYyI6Imh0dHA6Ly9ncmVlbmhvcm4uaHRiOjMwMDAvYX
+|   HTTPOptions:
+|     HTTP/1.0 405 Method Not Allowed
+|     Allow: HEAD
+|     Allow: GET
+|     Cache-Control: max-age=0, private, must-revalidate, no-transform
+|     Set-Cookie: i_like_gitea=8314acc0b9a6f288; Path=/; HttpOnly; SameSite=Lax
+|     Set-Cookie: _csrf=hqRITELlv9KTzIuFkycN6n_k8WM6MTcyMTcwOTMzMDg3MzQxNTkxMg; Path=/; Max-Age=86400; HttpOnly; SameSite=Lax
+|     X-Frame-Options: SAMEORIGIN
+|     Date: Tue, 23 Jul 2024 04:35:30 GMT
+|_    Content-Length: 0
+
+# Nmap done at Tue Jul 23 00:36:56 2024 -- 1 IP address (1 host up) scanned in 105.73 seconds</code></pre><div class="toolbar"><div class="toolbar-item"><span>Plain text</span></div><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div><div class="kg-card kg-callout-card kg-callout-card-blue"><div class="kg-callout-emoji">💡</div><div class="kg-callout-text">Don't miss an opportunity to find some breadcrumbs in the <code spellcheck="false" style="white-space: pre-wrap;" class="match-braces">nmap</code> output. We can see the HTTP redirect to <code spellcheck="false" style="white-space: pre-wrap;" class="match-braces">greenhorn.htb</code> and should add this to our <code spellcheck="false" style="white-space: pre-wrap;" class="match-braces">/etc/hosts</code> file.</div></div><div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="match-braces language-bash"><span class="token builtin class-name">echo</span> <span class="token parameter variable">-e</span> <span class="token string">'10.129.191.235\t\tgreenhorn.htb'</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> <span class="token parameter variable">-a</span> /etc/hosts</code></pre><div class="toolbar"><div class="toolbar-item"><span>Bash</span></div><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div><figure class="kg-card kg-image-card"><a data-no-swup="" data-fslightbox="" href="./HackTheBox _ GreenHorn_files/image-329.png" aria-label="Click for Lightbox"><img src="./HackTheBox _ GreenHorn_files/image-329.png" class="kg-image" alt="" loading="lazy" width="782" height="62" srcset="https://benheater.com/content/images/size/w600/2024/07/image-329.png 600w, https://benheater.com/content/images/2024/07/image-329.png 782w" sizes="(min-width: 720px) 720px"></a></figure><hr><div class="kg-card kg-callout-card kg-callout-card-grey"><div class="kg-callout-emoji">⛔</div><div class="kg-callout-text">This box is still active on HackTheBox. Once retired, this article will be published for public access <a href="https://help.hackthebox.com/en/articles/5188925-streaming-writeups-walkthrough-guidelines?ref=benheater.com" rel="noreferrer" target="_blank">as per HackTheBox's policy on publishing content from their platform</a>.</div></div>
+</div>
+
+</article>
+</div>
+</main>
+<footer class="footer">
+<div class="container wrapper">
+<div class="footer__content border-top p-t-lg">
+<div class="row">
+<div class="col-xs-12 col-md-6 m-b-lg">
+<div class="footer__brand flex items-center">
+<span class="footer__title" style="text-transform: none;">0xBEN</span>
+</div>
+<div class="footer__description m-b" id="footer-input-label">
+Cybersecurity and Coffee
+</div>
+<form class="subscribe-form radius-rounded" data-members-form="subscribe" data-style="inline">
+<input data-members-email="" class="w-100 radius-rounded" type="email" autocomplete="email" placeholder="Your email address" aria-labelledby="footer-input-label" required="">
+<button class="btn btn--primary radius-rounded uppercase" type="submit">
+<span>Subscribe</span>
+</button>
+<div class="msg-success">Great! Check your inbox and click the link.</div>
+<div class="msg-error">Sorry, something went wrong. Please try again.</div>
+</form> </div>
+<div class="col-xs-12 col-md-4 m-b-lg">
+<span class="fw-700 m-b-sm display-block uppercase text-acc">Navigation</span>
+<div class="grid col-2">
+<ul class="nav">
+<li class="nav-cybersecurity"><a href="https://benheater.com/cybersecurity/">Cybersecurity</a></li>
+<li class="nav-it"><a href="https://benheater.com/it/">IT</a></li>
+<li class="nav-coffee"><a href="https://benheater.com/coffee/">Coffee</a></li>
+<li class="nav-free-resources"><a href="https://benheater.com/free-training-resources-cybersec-and-it/">Free Resources</a></li>
+<li class="nav-topics"><a href="https://benheater.com/tags/">Topics</a></li>
+<li class="nav-notes"><a href="https://notes.benheater.com/" target="_blank">Notes</a></li>
+<li class="nav-have-i-helped-you"><a href="https://benheater.com/contribute/">Have I Helped You?</a></li>
+</ul>
+<ul class="nav">
+<li class="nav-about-me"><a href="https://benheater.com/about/">About Me</a></li>
+<li class="nav-resume"><a href="https://benheater.com/resume/">Resume</a></li>
+<li class="nav-projects"><a href="https://benheater.com/projects/">Projects</a></li>
+<li class="nav-github"><a href="https://github.com/0xBEN" target="_blank">GitHub</a></li>
+<li class="nav-linkedin"><a href="https://linkedin.com/in/benjaminheater" target="_blank">LinkedIn</a></li>
+<li class="nav-twitter"><a href="https://twitter.com/_0xBEN_" target="_blank">Twitter</a></li>
+</ul>
+</div>
+</div>
+<div class="col-xs-12 col-md-2 m-b">
+<span class="fw-700 m-b-sm display-block uppercase text-acc">Social</span>
+<div class="social-links flex flex-col fw-500">
+<a href="https://twitter.com/_0xBEN_" class="twitter" aria-label="Twitter" target="_blank"><i class="icon icon-twitter-x icon--sm">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#twitter-x"></use>
+</svg>
+</i><span>Twitter</span></a>
+<a href="https://benheater.com/rss" class="rss" aria-label="RSS"><i class="icon icon-rss icon--sm">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#rss"></use>
+</svg>
+</i><span>RSS</span></a>
+</div>
+</div>
+</div>
+</div>
+<div class="footer__copy text-09 text-center">
+<span>©2024&nbsp;<a href="https://benheater.com/">0xBEN</a>.</span>
+
+</div>
+</div>
+</footer>
+<div class="notifications">
+<div class="notify notify-signup">
+<i class="icon icon-success icon--xxl notify__icon">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#success"></use>
+</svg>
+</i> <div class="notify__msg">Great! You’ve successfully signed up.</div>
+<button class="notify__close js-notify-close" data-class="signup-success" aria-label="Close"></button>
+</div>
+<div class="notify notify-signin">
+<i class="icon icon-success icon--xxl notify__icon">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#success"></use>
+</svg>
+</i> <div class="notify__msg">Welcome back! You've successfully signed in.</div>
+<button class="notify__close js-notify-close" data-class="signin-success" aria-label="Close"></button>
+</div>
+<div class="notify notify-subscribe">
+<i class="icon icon-success icon--xxl notify__icon">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#success"></use>
+</svg>
+</i> <div class="notify__msg">You've successfully subscribed to 0xBEN.</div>
+<button class="notify__close js-notify-close" data-class="subscribe-success" aria-label="Close"></button>
+</div>
+<div class="notify notify-expired">
+<i class="icon icon-error icon--xxl notify__icon">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#error"></use>
+</svg>
+</i> <div class="notify__msg">Your link has expired.</div>
+<button class="notify__close js-notify-close" data-class="link-expired" aria-label="Close"></button>
+</div>
+<div class="notify notify-checkout">
+<i class="icon icon-success icon--xxl notify__icon">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#success"></use>
+</svg>
+</i> <div class="notify__msg">Success! Check your email for magic link to sign-in.</div>
+<button class="notify__close js-notify-close" data-class="checkout-success" aria-label="Close"></button>
+</div>
+<div class="notify notify-billing-success">
+<i class="icon icon-success icon--xxl notify__icon">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#success"></use>
+</svg>
+</i> <div class="notify__msg">Success! Your billing info has been updated.</div>
+<button class="notify__close js-notify-close" data-class="billing-success" aria-label="Close"></button>
+</div>
+<div class="notify notify-billing-cancel">
+<i class="icon icon-warning icon--xxl notify__icon">
+<svg class="icon__svg">
+<use xlink:href="/assets/icons/icon-sprite.svg?v=b7fffdacce#warning"></use>
+</svg>
+</i> <div class="notify__msg">Your billing was not updated.</div>
+<button class="notify__close js-notify-close" data-class="billing-cancel" aria-label="Close"></button>
+</div>
+</div>
+<script>
+    // Give the parameter a variable name
+    const qsParams = new URLSearchParams(window.location.search);
+    const isAction = qsParams.has('action');
+    const isStripe = qsParams.has('stripe');
+    const success = qsParams.get('success');
+    const action = qsParams.get('action');
+    const stripe = qsParams.get('stripe');
+
+    if (qsParams && isAction) {
+      if (success === "true") {
+        switch (action) {
+          case 'subscribe':
+            handleNotification('subscribe-success');
+            break;
+          case 'signup': 
+            handleNotification('signup-success');
+            break;
+          case 'signin':
+            handleNotification('signin-success');
+            break;
+          default:
+            break;
+        }
+      } else {
+        handleNotification('link-expired');
+      }
+    }
+
+    if (qsParams && isStripe) {
+      switch (stripe) {
+        case 'success':
+          handleNotification('checkout-success');
+          break;
+        case 'billing-update-success':
+          handleNotification('billing-success');
+          break;
+        case 'billing-update-cancel':
+          handleNotification('billing-cancel');
+          break;
+        default:
+          break;
+      }
+    }
+
+    /**
+    * Handle Notifications
+    */
+    function handleNotification(className) {
+      document.body.classList.add(className);
+      setTimeout(function(){ 
+        document.body.classList.remove(className);
+        clearURI();
+      }, 5000);
+    }
+    
+    /**
+    * Clean URI
+    */
+    function clearURI() {
+      window.history.replaceState({}, '', `${window.location.pathname}`);
+    }
+  </script>
+
+<script src="./HackTheBox _ GreenHorn_files/prism.js"></script>
+
+<script>
+var codeBlocks = document.getElementsByTagName("code");
+var array = [];
+for (var i = 0; i < codeBlocks.length ; i++) {
+    array.push(codeBlocks[i])
+}
+[].forEach.call(array, function(addClass) {
+    //addClass.classList.add("rainbow-braces");
+    addClass.classList.add("match-braces");
+    /*addClass.classList.add("no-brace-hover");*/
+});
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    var links = document.links;
+    for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+       if (links[i].hostname != window.location.hostname) {
+           links[i].target = '_blank';
+       }
+    }
+  });
+</script>
+
+<script>
+if (window.location.pathname === '/') {
+  // Change "Latest work" to "Projects"
+  var h2Elements = document.querySelectorAll('h2.section__title');
+  h2Elements.forEach(function(h2Element) {
+    if (h2Element && h2Element.innerText === 'Latest work') {
+      h2Element.innerText = 'Projects';
+    }
+  })
+}
+
+// Remove unwanted footer elements
+var secondSpan = document.querySelector('.footer__copy span:nth-child(2)');
+secondSpan.parentNode.removeChild(secondSpan);
+
+// Remove all caps from the footer title class
+var footerTitle = document.querySelector('.footer__title');
+footerTitle.style.textTransform = 'none';
+
+// Swap out old blog logo on any bookmark cards
+var bookmarkImg = document.querySelectorAll('.kg-bookmark-thumbnail img');
+bookmarkImg.forEach(function(img) {
+  if (img.src.match('https://benheater.com/content/images/2022/01/my-website-coffee-pour-over-no-brackets')) {
+    img.src = 'https://benheater.com/content/images/2023/12/pour-over-12.png';
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+ 
+  /** 
+  Fumio theme renders some things differently than 
+  previously used Firma theme, as this the case with
+  custom toggle elements. Use some JS to add a <br>
+  element to make the custom toggles more visually
+  appealing.
+  **/
+  
+  var toggleContents = document.querySelectorAll(".kg-toggle-content");
+  toggleContents.forEach(function(toggleContent) {
+    var codeToolbar = toggleContent.querySelector('.code-toolbar');
+    var brElement = document.createElement("br");
+    if (codeToolbar) { codeToolbar.parentNode.insertBefore(brElement, codeToolbar); }
+  });
+
+  /**
+  Again, Fumio renders things a bit differently than Firma
+  Whereas with Firma, I would need to add some empty lines
+  between certain elements, this is not necessary with Fumio
+  Thus, it is fine to remove empty <p></p> elements from the DOM
+  **/
+  var emptyParagraphs = document.querySelectorAll('p:empty');
+  emptyParagraphs.forEach(function(emptyParagraph) {
+    if (!emptyParagraph.previousElementSibling.classList.contains('kg-style-image')) {
+      emptyParagraph.remove();
+    }
+  });
+
+  /**
+  Remove the Content CTA if the text contains "Pending Publication"
+  The wording is a bit misleading and this is a cheap hack around
+  standard functionality of the platform
+  **/
+  contentCTA = document.querySelector('.content-cta.border.tiers');
+  if (contentCTA.innerText.match('Pending Publication')) {
+    contentCTA.remove()
+  }
+
+});
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'8c9bc9bf4c9b65e9',t:'MTcyNzQ0MzE5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;" src="./HackTheBox _ GreenHorn_files/saved_resource.html"></iframe><script defer="" src="./HackTheBox _ GreenHorn_files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;8c9bc9bf4c9b65e9&quot;,&quot;version&quot;:&quot;2024.8.0&quot;,&quot;r&quot;:1,&quot;token&quot;:&quot;b2aa299e49054244ad66d91153dcc33b&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true}}}" crossorigin="anonymous"></script>
+
+
+<div id="ghost-portal-root"></div><div id="sodo-search-root"></div><iframe name="__privateStripeMetricsController3460" frameborder="0" allowtransparency="true" scrolling="no" role="presentation" allow="payment *" src="./HackTheBox _ GreenHorn_files/m-outer-3437aaddcdf6922d623e172c2d6f9278.html" aria-hidden="true" tabindex="-1" style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe></body></html>

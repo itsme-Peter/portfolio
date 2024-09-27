@@ -1,5 +1,21 @@
 var data=[
-         {
+      {
+        "title":"GreenHorn: HackTheBox",
+        "description":``,
+        "image":"./static/images/GreenHorn.png",
+        "url":"./static/pdf/greenHorn.pdf",
+        "date":"",
+        "topic":["Pluck","CVE","Hash Cracking","Depix","Pixelation"],
+    },
+      {
+        "title":"BoardLight.pdf",
+        "description":``,
+        "image":"./static/images/boardLight.png",
+        "url":"./static/pdf/boardLight.pdf",
+        "date":"",
+        "topic":[" CVE-2023-30253","gnu-enlightenment","mysql"],
+    },
+    {
         "title":"Unified:HackTheBox",
         "description":`It explores the effects of exploiting Log4J in a very well known network appliance monitoring
                            system called "UniFi". This box will show you how to set up and install the necessary packages and tools to
